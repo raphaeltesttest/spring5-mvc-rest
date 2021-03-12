@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Api(description = "this is my Customer Controller")
+@Api(description = "This is my Customer API")
 @Controller
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
@@ -23,32 +23,37 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @ApiOperation(value = "this will get a list of customers.", notes = "these are some notes about the API.")
+    @ApiOperation(value = "View List of Customers", notes = "These are some notes about the API.")
     @GetMapping
     public ResponseEntity<CustomerListDTO> getListOfCustomers() {
         return new ResponseEntity<CustomerListDTO>(new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get Customer By Id")
     @GetMapping({"/{id}"})
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
         return new ResponseEntity<CustomerDTO>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Create a new Customer")
     @PostMapping
     public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
         return new ResponseEntity<CustomerDTO>(customerService.createNewCustomer(customerDTO), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Update an existing Customer")
     @PutMapping({"/{id}"})
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return new ResponseEntity<CustomerDTO>(customerService.saveCustomerByDTO(id, customerDTO), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Update a Vendor Property")
     @PatchMapping({"/{id}"})
     public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return new ResponseEntity<CustomerDTO>(customerService.patchCustomer(id, customerDTO), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Delete a Customer")
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
 

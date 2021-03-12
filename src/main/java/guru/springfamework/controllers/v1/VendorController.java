@@ -28,7 +28,7 @@ public class VendorController {
         return vendorService.getAllVendors();
     }
 
-    @ApiOperation(value = "Get vendor By Id")
+    @ApiOperation(value = "Get Vendor By Id")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO getVendorById(@PathVariable Long id) {
