@@ -1,7 +1,7 @@
 package guru.springfamework.controllers.v1;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
-import guru.springfamework.api.v1.model.CustomerListDTO;
+import guru.springfamework.model.CustomerDTO;
+import guru.springfamework.model.CustomerListDTO;
 import guru.springfamework.services.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,10 @@ public class CustomerController {
     @ApiOperation(value = "View List of Customers", notes = "These are some notes about the API.")
     @GetMapping
     public ResponseEntity<CustomerListDTO> getListOfCustomers() {
-        return new ResponseEntity<CustomerListDTO>(new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomers());
+        return new ResponseEntity<CustomerListDTO>(customerListDTO, HttpStatus.OK);
+//        return new ResponseEntity<CustomerListDTO>(new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get Customer By Id")
